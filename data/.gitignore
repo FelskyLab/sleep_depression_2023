@@ -1,6 +1,5 @@
 *
-!/bronze
-!/silver
-!/gold
+!/task
+!/resting
 !/README.md
 !.gitignore
