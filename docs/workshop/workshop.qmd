@@ -1,0 +1,295 @@
+---
+title: "Getting Started with Git and GitHub"
+subtitle: "Version Control and Repository Structure"
+date: 2023-02-10
+date-format: iso
+institute: Centre of Addiction and Mental Health
+format: 
+  revealjs:
+    theme: night
+    link-external-icon: true
+    link-external-newwindow: true
+
+title-block-banner: true
+
+---
+
+## {visibility="hidden"}
+```{mermaid}
+
+flowchart LR
+  subgraph s1[Updates]
+    A[Round Table]
+  end
+  subgraph s2[Workshop]
+    B[Workshop Motivation and Goals] 
+    C[Getting Started with GitHub] 
+    D[Bash on the SCC]
+    E[Getting Started with Git] 
+    subgraph s3[Alternative]
+      F[Getting Started with Github CLI]
+    end
+    G[Integrating Git with Github]
+    H[Pulling to Your Local Machine]
+    I[Any other matters]
+  
+
+  end
+  s1 --> s2
+  B --> C
+  C --> D
+  D --> E
+  D --> s3
+  E --> G
+  s3 --> G
+  G --> H
+  H --> I
+  
+```
+## {visibility="hidden"}
+
+```{mermaid}
+
+gantt
+  title 2023-02-10 Agenda
+    dateFormat  YYYY-MM-DD hh:mma
+    axisFormat  %I:%M%p
+  section Lab Updates
+    Round table             : u1, 2023-02-10 03:00p, 10m
+  section Workshop Introduction
+    Establish motivation              : w1, after u1, 2.5m
+    Establish goals                   : w2, after w1, 2.5m
+  section Getting Started with GitHub
+    Create GitHub account   :crit, gh1, after w2, 5m
+    GitHub account          :crit, milestone, after gh1, 0m
+    Join FelskyLab GitHub Org :gh2, after gh1, 2.5m
+    Create new repository from template: gh3, after gh2, 2.5m
+    Remote project repository : milestone, after gh3, 0m
+  section Bash on the SCC
+    Edit ~/.bashrc and ~/.bash_profile : b1, after gh3, 2.5m
+    Generate SSH key : crit, b2, after b1, 2.5m
+    SSH key: crit, milestone, after b2
+  section Getting Started with Git
+    git config: g1, after b2, 1m
+    git clone: crit, g2, after g1, 1m
+    local repository: crit, milestone, after g2
+    git status: g3, after g2, 23m
+    Move/Copy project files to local repo: g4, 2023-02-10 03:35p, 20m
+    git add: g5, 2023-02-10 03:35p, 20m
+    git commit: g6, 2023-02-10 03:35p, 20m
+  section [Alternative] GitHub CLI
+    gh auth login     : gc1, after b2, 1m
+    gh auth setup-git : gc2, after gc1, 1m
+    gh repo clone : gc3, after gc2, 1m
+  section Integrating Git with GitHub
+    Copy SSH Key to GitHub: gg1, after g6, 2.5m
+    git push: gg2, after gg1, 2.5m
+  section Pull to your Local Machine
+    Install Git     :crit, l1, 2023-02-10 03:15p, 20m
+    git pull        :l2, after gg2, 5m
+  section Any other matters
+    Closing remarks :a1, after l2, 5m
+    How to do X     :a2, after l2, 25m
+    Buffer time     :a3, after l2, 25m
+
+
+
+
+```
+##
+
+![](public/images/github/research-cycle.png){fig-align="center"}
+
+::: {.notes}
+- Start of with motivation
+- Common processes
+
+:::
+
+##
+
+![](public/images/github/reproducibility.png){fig-align="center"}
+
+::: {.notes}
+- Common artifacts along the way 
+- Used to support your papers and presentations
+- If you or someone else were to try and retrace the steps through your journey...
+:::
+
+##
+
+![](public/images/scriberia/VersionControl-left.png){fig-align="center"}
+
+::: {.notes}
+- Sifting through unstructured directories and files versioned by name
+
+:::
+
+##
+
+![](public/images/scriberia/ReadableCode.png){fig-align="center"}
+
+::: {.notes}
+- Decifering your code
+
+:::
+
+##
+
+![](public/images/scriberia/file-management-digital-no-text-left.png){fig-align="center"}
+
+## 
+
+![](public/images/scriberia/file-management-digital-no-text.png){fig-align="center"}
+
+::: {.notes}
+- The difference that using git and github will make
+- Workshop will help you make your way from being the person on the left to the person on the right.
+
+:::
+
+## 
+
+![](public/images/scriberia/healthy-research-tree-no-text.png){fig-align="center"}
+
+::: {.notes}
+- Help you deliver 
+
+:::
+
+##
+
+![](public/images/scriberia/healthcare-data.png){fig-align="center"}
+
+## Our Lab's GitHub Will Strive to Support Your Research
+
+![](public/images/scriberia/reproducible-pipeline-no-text.png){fig-align="center"}
+
+::: {.notes}
+- Tools and Templates
+
+:::
+
+## This Workshop Focuses on the Fundamentals
+
+::: {layout-ncol=2}
+
+![](public/images/scriberia/file-management-manual.png){fig-align="left"}
+
+![](public/images/scriberia/VersionControl.png){fig-align="right"}
+
+:::
+
+## Getting Started with GitHub
+::: {.incremental}
+1. [Sign Up](https://github.com/signup){preview-link="false"}
+2. Drop your username in Slack
+3. Accept Invitation to Whole Person Population Modelling (FelskyLab) 
+4. [Create new repository from template](https://github.com/FelskyLab/template-research-project-repo/generate){preview-link="false"}
+:::
+
+## Bash on the SCC {auto-animate="true"}
+Custom functions and aliases placed in `~/.bash_profile` are loaded when you login to the SCC
+```{.bash filename="~/.bash_profile"}
+# .bash_profile
+
+# Get subshell aliases and functions
+if [ -f ~/.bashrc ]; then
+  . ~/.bashrc
+fi
+
+```
+
+## Bash on the SCC {auto-animate="true"}
+Custom functions and aliases placed in `~/.bash_profile` are loaded when you login to the SCC
+```{.bash filename="~/.bash_profile"}
+# .bash_profile
+
+# Get subshell aliases and functions
+if [ -f ~/.bashrc ]; then
+  . ~/.bashrc
+fi
+
+# User specific aliases and functions
+
+## Git
+export GIT_HOME=/external/rprshnas01/netdata_kcni/dflab/.opt/git-2.39.1
+export PATH=$GIT_HOME/bin:$PATH
+```
+
+## Bash on the SCC {auto-animate="true"}
+Custom functions and aliases placed in `~/.bash_profile` are loaded when you login to the SCC
+```{.bash filename="~/.bash_profile"}
+# .bash_profile
+
+# Get subshell aliases and functions
+if [ -f ~/.bashrc ]; then
+  . ~/.bashrc
+fi
+
+# User specific aliases and functions
+
+## Git
+export GIT_HOME=/external/rprshnas01/netdata_kcni/dflab/.opt/git-2.39.1
+export PATH=$GIT_HOME/bin:$PATH
+
+## Source Custom Modules ##
+. /external/rprshnas01/netdata_kcno/dflab/.opt/spack/share/setup-env.sh
+
+## Load Custom Modules
+module load \ 
+  gh-2.5.1-gcc-10.2.0-33pkpvp
+```
+
+## Bash on the SCC {auto-animate="true"}
+Custom functions and aliases placed in `~/.bashrc` become available in subshells
+```{.bash filename="~/.bashrc"}
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+
+# User specific aliases and functions
+```
+::: {.notes}
+- default
+:::
+
+## Integrate Git with Github
+
+1. Run `gh auth login` to authenticate with your GitHub account.
+2. Configure git to use GitHub CLI as a credential helper with `gh auth setup-git`
+3. View your repos with `gh repo list`
+4. Clone the template repo with `gh repo clone <repository> [<directory>]`
+
+## Move/Copy files into your working directory
+Your working directory stores the current state of files that you are working on as you are working on them.
+
+- Try typing `git status` before and after moving a file into it
+
+
+## Add Working Tree Files to the Index/Stage
+
+The index/stage stores a single snapshot of files at the moment they are added with `git add`
+![](public/images/atlassian/git-add.svg)
+
+## Commit Staged Files to Your Local Repository
+`git commit` moves your staged single snapshot and connects it to your project's history in your local repo
+![](public/images/atlassian/git-commit.svg)
+
+##  Push Your Local Repository to GitHub{auto-animate="true"}
+`git push` updates your remote repository with your locally commited changes
+
+![](public/images/atlassian/before-git-push.png){fig-align="center"}
+
+##  Push Your Local Repository to GitHub{auto-animate="true"}
+`git push` updates your remote repository with your locally commited changes
+
+![](public/images/atlassian/after-git-push.png){fig-align="center"}
+
+##  Pull Your GitHub Repo to Your Local Machine
+::: {.incremental}
+- provided that it was cloned before the push
+:::
