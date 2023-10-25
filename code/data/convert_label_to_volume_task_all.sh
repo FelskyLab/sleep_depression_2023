@@ -1,6 +1,6 @@
 START=0
-STEP=70
-SLEEP=600 #2 Minutes (in seconds)
+STEP=90
+SLEEP=3600 #60 Minutes (in seconds)
 
 INPUTS=($(<../../data/subject_list.txt))
 END=$[ ${#INPUTS[@]} ]
@@ -10,7 +10,6 @@ for i in $(seq $START $STEP $END) ; do
     JSTART=$i
     JEND=$[ $STEP - 1 ] 
     echo "Submitting from ${JSTART} and step= ${JEND}"
-    sbatch --array=0-${JEND} --export=f1=${JSTART} combine_bilateral_rois.sh
+    sbatch --array=0-${JEND} --export=f1=${JSTART} convert_all_labels_to_volume_task.sh
     sleep $SLEEP
 done
-

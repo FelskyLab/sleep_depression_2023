@@ -108,22 +108,22 @@ def filter_inds(variable_list, inds, mode='keep'):
     return variable_list
 
 def get_data_locations(subject, roi_groups):
-    base_location = '/external/rprshnas01/external_data/uk_biobank/imaging/brain/nifti/fmri_task_based'
-    data_location = '{}/nifti/data/{}_20249_3_0/fMRI/tfMRI.feat/filtered_func_data.nii.gz'.format(base_location, subject)
-    task_file = '{}/eprime/eprime_csv_filtered/{}_25748_3_0.csv'.format(base_location, subject)
+    base_location = '../../data/task/'
+    data_location = '{}/activation/{}_20249_2_0/fMRI/tfMRI.feat/filtered_func_data.nii.gz'.format(base_location, subject)
+    task_file = '{}/behavior/{}_25748_2_0.csv'.format(base_location, subject)
     roi_locations = list()
     for roi in roi_groups:
-        roi_location = '{}/nifti/data_roi_inst3/{}/{}/'.format(base_location, roi, subject)
+        roi_location = '{}/roi/{}/{}/'.format(base_location, roi, subject)
         roi_locations.append(roi_location)
 
     return data_location, roi_locations, task_file
 
 def get_data_locations_resting(subject, roi_groups):
-    base_location = '/external/rprshnas01/external_data/uk_biobank/imaging/brain/nifti/fmri_resting/'
-    data_location = '{}/data/{}_20227_3_0/fMRI/rfMRI.ica/filtered_func_data_clean.nii.gz'.format(base_location, subject)
+    base_location = '../../data/resting/'
+    data_location = '{}/activation/{}_20227_2_0/fMRI/rfMRI.ica/filtered_func_data_clean.nii.gz'.format(base_location, subject)
     roi_locations = list()
     for roi in roi_groups:
-        roi_location = '{}/data_roi/{}/{}/'.format(base_location, roi, subject)
+        roi_location = '{}/roi/{}/{}/'.format(base_location, roi, subject)
         roi_locations.append(roi_location)
 
     return data_location, roi_locations
@@ -253,13 +253,14 @@ def add_roimask(bdata, roi_mask, roi_prefix='',
 if __name__ == '__main__':
     # UKB
     subject_id = '5446423'
+    roi_list = ['hcp180']
 
-    roi_list = ['aseg']
     data_loc, roi_loc, task_loc = get_data_locations(subject_id, roi_list)
     opts = dict()
     opts['shift_size'] = 5
     opts['normalize_mode'] = 'PercentSignalChange'
     opts['voxel_coordinate_rounding'] = 3
+
     brain_data = make_dataset(data_loc, roi_loc, task_loc, opts)
     brain_data.show_metadata()
 

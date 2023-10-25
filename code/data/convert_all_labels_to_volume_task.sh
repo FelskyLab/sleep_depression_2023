@@ -17,21 +17,21 @@ func () {
     echo $subject_id
     labels_list=$SUBJECTS_DIR/fsaverage/label/hcp180/lh*.label
 
-	for label in $labels_list
-	do
-		label_file="$(cut -d"/" -f14 <<< $label)"
-		mri_label2label --srcsubject fsaverage --srclabel $label --trgsubject "$subject_id"_20263_2_0 --trglabel $SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/$label_file --regmethod surface --hemi lh 
-	done
+    for label in $labels_list
+    do
+      label_file="$(cut -d"/" -f14 <<< $label)"
+      mri_label2label --srcsubject fsaverage --srclabel $label --trgsubject "$subject_id"_20263_2_0 --trglabel $SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/$label_file --regmethod surface --hemi lh
+    done
 
-	labels_list=$SUBJECTS_DIR/fsaverage/label/hcp180/rh*.label
+    labels_list=$SUBJECTS_DIR/fsaverage/label/hcp180/rh*.label
 
-	for label in $labels_list
-	do
- 		label_file="$(cut -d"/" -f14 <<< $label)"
-#        	echo $label
-#       		 echo $label_file
-        	mri_label2label --srcsubject fsaverage --srclabel $label --trgsubject "$subject_id"_20263_2_0 --trglabel $SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/$label_file --regmethod surface --hemi rh
-	done
+    for label in $labels_list
+    do
+      label_file="$(cut -d"/" -f14 <<< $label)"
+  #        	echo $label
+  #       		 echo $label_file
+            mri_label2label --srcsubject fsaverage --srclabel $label --trgsubject "$subject_id"_20263_2_0 --trglabel $SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/$label_file --regmethod surface --hemi rh
+    done
 
     label_location=($SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/?h.?_*.label)
     existing_labels=${#label_location[@]}

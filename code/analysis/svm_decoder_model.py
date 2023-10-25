@@ -10,8 +10,6 @@ import pickle
 def run_svm_model(subject_id, roi_list, options, model_options, save_model=False):
     data_loc, roi_loc, task_loc = get_data_locations(subject_id, roi_list)
     brain_data = make_dataset(data_loc, roi_loc, task_loc, options)
-    # if ('motion_data' in model_options.keys()) and (model_options['motion_data']):
-    #     motion_data = get_motion_data(subject_id)
 
     number_of_splits = model_options['number_of_splits']
     classification_target = model_options['classification_target']
@@ -52,7 +50,7 @@ def run_svm_model(subject_id, roi_list, options, model_options, save_model=False
             accuracy = model.score(test_voxels, test_label.ravel())
             accuracy_list.loc[idx, roi] = accuracy
             if save_model:
-                save_folder = '/external/rprshnas01/netdata_kcni/dflab/team/ma/ukb/imaging/svm_models/{}/{}/'.format(subject_id, roi)
+                save_folder = '../../data/task/processed/svm_models/{}/{}/'.format(subject_id, roi)
                 os.makedirs(save_folder, exist_ok=True)
                 filename = os.path.join(save_folder, 'svm_model_cvsplit{}_{}.sav'.format(idx, classification_target))
                 pickle.dump(model, open(filename, 'wb'))
@@ -65,7 +63,7 @@ def get_roi_list(roi_folders, combine_LR=False, suffices=None):
     if suffices is None:
         suffices = ['' for x in range(len(roi_folders))]
     for roi_folder, suffix in zip(roi_folders, suffices):
-        roi_list_file = 'final_{}_roi_list{}.txt'.format(roi_folder, suffix)
+        roi_list_file = '../../data/final_{}_roi_list{}.txt'.format(roi_folder, suffix)
         with open(roi_list_file) as f:
             roi_list = f.readlines()
         file_roi_list = [s.strip() for s in roi_list]
@@ -98,8 +96,8 @@ if __name__ == '__main__':
     import resource
 
     start_time = time.time()
-    subject = '4693901' # 1432072 #{'3237551', '3701308', '4099348', '4568736', '5633652'}
-    rois_in_bdata = ['aseg', 'hcp180']
+    subject = '4693901'
+    rois_in_bdata = ['hcp180']
     opts = dict()
     opts['shift_size'] = 5
     opts['normalize_mode'] = 'PercentSignalChange'
@@ -107,11 +105,7 @@ if __name__ == '__main__':
     model_construction = dict()
     model_construction['number_of_splits'] = 6
     model_construction['classification_target'] = 'emotion_binary'
-    # model_construction['target_dictionary'] = {'Non-face':np.nan, 'fear':0, 'anger':1}
-    # model_construction['roi_list'] = 'all'
     model_construction['roi_list'] = get_roi_list(['hcp180'], combine_LR=False, suffices=['_bilateral'])
-    model_construction['roi_list'].extend(get_roi_list(['aseg'], combine_LR=True))
-    # model_construction['motion_data'] = True
     accuracy_df = run_svm_model(subject, rois_in_bdata, opts, model_construction, save_model=True)
     print(accuracy_df.describe(percentiles=[]))
     print("--- %s seconds elapsed ---" % (time.time() - start_time))

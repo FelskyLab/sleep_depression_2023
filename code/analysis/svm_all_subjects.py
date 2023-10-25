@@ -15,12 +15,9 @@ if classification_target == 'emotion':
     model_construction['target_dictionary'] = {'Non-face': np.nan, 'fear': 0, 'anger': 1}
 model_construction['number_of_splits'] = 6
 model_construction['classification_target'] = classification_target
-# model_construction['roi_list'] = 'all'
 model_construction['roi_list'] = get_roi_list(['hcp180'], combine_LR=False, suffices=['_bilateral'])
-# model_construction['roi_list'].extend(get_roi_list(['aseg'], combine_LR=True))
-# model_construction['roi_list'] = list(set(model_construction['roi_list']))
 print(subject)
-accuracy_df = run_svm_model(subject, rois_in_bdata, opts, model_construction, save_model=True)
-save_location = '/external/rprshnas01/netdata_kcni/dflab/team/ma/ukb/imaging/svm_results_allrois_bilateral_inst3/{}'.format(classification_target)
+accuracy_df = run_svm_model(subject, rois_in_bdata, opts, model_construction, save_model=False)
+save_location = '../../data/task/processed/decoding_accuracy'
 os.makedirs(save_location, exist_ok=True)
 accuracy_df.to_csv('{}/{}.csv'.format(save_location, subject))

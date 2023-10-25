@@ -1,6 +1,6 @@
 START=0
 STEP=70
-SLEEP=600 #2 Minutes (in seconds)
+SLEEP=1200 #20 Minutes (in seconds)
 
 INPUTS=($(<../../data/subject_list.txt))
 END=$[ ${#INPUTS[@]} ]
@@ -10,7 +10,6 @@ for i in $(seq $START $STEP $END) ; do
     JSTART=$i
     JEND=$[ $STEP - 1 ] 
     echo "Submitting from ${JSTART} and step= ${JEND}"
-    sbatch --array=0-${JEND} --export=f1=${JSTART} combine_bilateral_rois.sh
+    sbatch --array=0-${JEND} --export=f1=${JSTART} convert_label_to_volume_resting.sh
     sleep $SLEEP
 done
-
