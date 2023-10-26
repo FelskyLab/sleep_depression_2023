@@ -92,7 +92,7 @@ def make_dataset(data_location, roi_locations, task_file, options, verbose=False
         print('Adding ROIs...')
     for roi_location in roi_locations:
         roi_files = glob(os.path.join(roi_location, '*.nii.gz'))
-        roi_group = roi_location.split(os.path.sep)[-3]
+        roi_group = 'hcp180'
         for file in roi_files:
             bdata = add_roimask(bdata, file, roi_prefix='roi_{}'.format(roi_group), brain_data='VoxelData', verbose=verbose, round=voxel_coordinate_rounding)
 
@@ -107,14 +107,13 @@ def filter_inds(variable_list, inds, mode='keep'):
         variable_list[idx] = variable
     return variable_list
 
-def get_data_locations(subject, roi_groups):
+def get_data_locations(subject):
     base_location = '../../data/task/'
     data_location = '{}/activation/{}_20249_2_0/fMRI/tfMRI.feat/filtered_func_data.nii.gz'.format(base_location, subject)
-    task_file = '{}/behavior/{}_25748_2_0.csv'.format(base_location, subject)
+    task_file = '{}/behavior/csv/{}_25748_2_0.csv'.format(base_location, subject)
     roi_locations = list()
-    for roi in roi_groups:
-        roi_location = '{}/roi/{}/{}/'.format(base_location, roi, subject)
-        roi_locations.append(roi_location)
+    roi_location = '{}/roi/{}/'.format(base_location, subject)
+    roi_locations.append(roi_location)
 
     return data_location, roi_locations, task_file
 
@@ -253,9 +252,8 @@ def add_roimask(bdata, roi_mask, roi_prefix='',
 if __name__ == '__main__':
     # UKB
     subject_id = '5446423'
-    roi_list = ['hcp180']
 
-    data_loc, roi_loc, task_loc = get_data_locations(subject_id, roi_list)
+    data_loc, roi_loc, task_loc = get_data_locations(subject_id)
     opts = dict()
     opts['shift_size'] = 5
     opts['normalize_mode'] = 'PercentSignalChange'

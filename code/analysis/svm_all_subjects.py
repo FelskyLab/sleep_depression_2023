@@ -5,7 +5,6 @@ import sys
 
 classification_target = sys.argv[1]
 subject = sys.argv[2]
-rois_in_bdata = ['hcp180']
 opts = dict()
 opts['shift_size'] = 5
 opts['normalize_mode'] = 'PercentSignalChange'
@@ -17,7 +16,7 @@ model_construction['number_of_splits'] = 6
 model_construction['classification_target'] = classification_target
 model_construction['roi_list'] = get_roi_list(['hcp180'], combine_LR=False, suffices=['_bilateral'])
 print(subject)
-accuracy_df = run_svm_model(subject, rois_in_bdata, opts, model_construction, save_model=False)
+accuracy_df = run_svm_model(subject, opts, model_construction, save_model=False)
 save_location = '../../data/task/processed/decoding_accuracy'
 os.makedirs(save_location, exist_ok=True)
 accuracy_df.to_csv('{}/{}.csv'.format(save_location, subject))

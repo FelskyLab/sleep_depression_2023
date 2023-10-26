@@ -7,8 +7,8 @@ import numpy as np
 import pandas as pd
 import pickle
 
-def run_svm_model(subject_id, roi_list, options, model_options, save_model=False):
-    data_loc, roi_loc, task_loc = get_data_locations(subject_id, roi_list)
+def run_svm_model(subject_id, options, model_options, save_model=False):
+    data_loc, roi_loc, task_loc = get_data_locations(subject_id)
     brain_data = make_dataset(data_loc, roi_loc, task_loc, options)
 
     number_of_splits = model_options['number_of_splits']
@@ -97,7 +97,6 @@ if __name__ == '__main__':
 
     start_time = time.time()
     subject = '4693901'
-    rois_in_bdata = ['hcp180']
     opts = dict()
     opts['shift_size'] = 5
     opts['normalize_mode'] = 'PercentSignalChange'
@@ -106,7 +105,7 @@ if __name__ == '__main__':
     model_construction['number_of_splits'] = 6
     model_construction['classification_target'] = 'emotion_binary'
     model_construction['roi_list'] = get_roi_list(['hcp180'], combine_LR=False, suffices=['_bilateral'])
-    accuracy_df = run_svm_model(subject, rois_in_bdata, opts, model_construction, save_model=True)
+    accuracy_df = run_svm_model(subject, opts, model_construction, save_model=False)
     print(accuracy_df.describe(percentiles=[]))
     print("--- %s seconds elapsed ---" % (time.time() - start_time))
     print(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)

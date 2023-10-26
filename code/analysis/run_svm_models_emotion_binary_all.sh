@@ -1,5 +1,5 @@
 START=0
-STEP=70
+STEP=2
 SLEEP=1800 #20 Minutes (in seconds)
 
 INPUTS=($(<../../data/subject_list.txt))
