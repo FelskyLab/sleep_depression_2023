@@ -1,6 +1,6 @@
 START=0
-STEP=70
-SLEEP=600 #2 Minutes (in seconds)
+STEP=2
+SLEEP=1200 #20 Minutes (in seconds)
 
 INPUTS=($(<../../data/subject_list.txt))
 END=$[ ${#INPUTS[@]} ]

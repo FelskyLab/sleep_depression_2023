@@ -34,7 +34,7 @@ func () {
     label_location=($SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/?h.?_*.label)
     existing_labels=${#label_location[@]}
 
-    if [ ${existing_labels} -gt 360 ] && [ -f "$tfmri"/fMRI/tfMRI.feat/example_func.nii.gz ];  then
+    if [ ${existing_labels} -gt 359 ] && [ -f "$tfmri"/fMRI/tfMRI.feat/example_func.nii.gz ];  then
 
       output_location=../../data/task/roi/"$subject_id"
       if [ -d $output_location ]; then
