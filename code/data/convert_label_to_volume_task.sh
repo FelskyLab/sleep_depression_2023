@@ -10,16 +10,16 @@ SUBJECTS_DIR=../../data/anatomy
 
 INPUTS=($(<../../data/subject_list.txt))
 func () {
-    f=$1
-    tfmri=../../data/task/activation/"$f"_20249_2_0/
-    filename="$(cut -d'/' -f12 <<< $f)"
-    subject_id="$(cut -d'_' -f1 <<< $filename)"
+    subject_id=$1
+    tfmri=../../data/task/activation/"$subject_id"_20249_2_0/
     echo $subject_id
+    mkdir $SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/
     labels_list=$SUBJECTS_DIR/fsaverage/label/hcp180/lh*.label
 
     for label in $labels_list
     do
-      label_file="$(cut -d"/" -f14 <<< $label)"
+      label_file="$(cut -d"/" -f8 <<< $label)"
+      echo $label_file
       mri_label2label --srcsubject fsaverage --srclabel $label --trgsubject "$subject_id"_20263_2_0 --trglabel $SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/$label_file --regmethod surface --hemi lh
     done
 
@@ -27,10 +27,8 @@ func () {
 
     for label in $labels_list
     do
-      label_file="$(cut -d"/" -f14 <<< $label)"
-  #        	echo $label
-  #       		 echo $label_file
-            mri_label2label --srcsubject fsaverage --srclabel $label --trgsubject "$subject_id"_20263_2_0 --trglabel $SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/$label_file --regmethod surface --hemi rh
+      label_file="$(cut -d"/" -f8 <<< $label)"
+      mri_label2label --srcsubject fsaverage --srclabel $label --trgsubject "$subject_id"_20263_2_0 --trglabel $SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/$label_file --regmethod surface --hemi rh
     done
 
     label_location=($SUBJECTS_DIR/"$subject_id"_20263_2_0/label/hcp180/?h.?_*.label)
@@ -38,7 +36,7 @@ func () {
 
     if [ ${existing_labels} -gt 360 ] && [ -f "$tfmri"/fMRI/tfMRI.feat/example_func.nii.gz ];  then
 
-      output_location=../../data/task/roi/"$filename"
+      output_location=../../data/task/roi/"$subject_id"
       if [ -d $output_location ]; then
         existing_files=$output_location/*.nii.gz
       fi
@@ -46,7 +44,7 @@ func () {
         mkdir $output_location
         for label in "${label_location[@]}"
         do
-          label_file="$(cut -d"/" -f14 <<< $label)"
+          label_file="$(cut -d"/" -f8 <<< $label)"
           label_file="$(cut -d'.' -f2 <<< $label_file)"
           mri_label2vol --label "$label" --temp "$tfmri"/fMRI/tfMRI.feat/example_func.nii.gz --fillthresh 0.3  --regheader "$SUBJECTS_DIR"/"$subject_id"_20263_2_0/mri/orig.mgz --o "$output_location"/"$label_file".nii.gz
         done
