@@ -1,14 +1,11 @@
 import os
 from bdpy_make_dataset import get_data_locations, make_dataset
-from sklearn.model_selection import StratifiedShuffleSplit
-from sklearn.svm import SVC
 import numpy as np
 import pandas as pd
 from svm_decoder_model import get_all_rois, get_roi_list
-from math import isnan
 
-def calculate_rdsa(subject_id, roi_list, options, model_options, save_model=False):
-    data_loc, roi_loc, task_loc = get_data_locations(subject_id, roi_list)
+def calculate_rdsa(subject_id, options, model_options, save_model=False):
+    data_loc, roi_loc, task_loc = get_data_locations(subject_id)
     brain_data = make_dataset(data_loc, roi_loc, task_loc, options)
 
     roi_list = model_options['roi_list']
@@ -30,7 +27,7 @@ def calculate_rdsa(subject_id, roi_list, options, model_options, save_model=Fals
         rdsa = 1 - np.corrcoef(voxels)
         rdsa_roi[roi] = rdsa
         if save_model:
-            save_folder = '/external/rprshnas01/netdata_kcni/dflab/team/ma/ukb/imaging/rsa_{}/{}/'.format(model_options['rsa_type'], subject_id)
+            save_folder = '../../data/task/processed/rsa/{}/'.format(subject_id)
             os.makedirs(save_folder, exist_ok=True)
             filename = os.path.join(save_folder, 'rsa_{}.npy'.format(roi.replace(' ', '_')))
             np.save(filename, rdsa)
@@ -56,9 +53,8 @@ def representational_connectivity(rdsa_roi, model_options, subject_id, save=Fals
             rdsa_values2 = data2[np.triu_indices(data1.shape[0], k=1)]
             connectivity_matrix.loc[roi1, roi2] = np.corrcoef(rdsa_values1, rdsa_values2)[0, 1]
     if save:
-        save_folder = '/external/rprshnas01/netdata_kcni/dflab/team/ma/ukb/imaging/rsa_{}/{}/'.format(
-            model_options['rsa_type'], subject_id)
-        filename = os.path.join(save_folder, 'representational_connectivity.csv')
+        save_folder = '../../data/task/processed/rsa/'
+        filename = os.path.join(save_folder, '{}.csv'.format(subject_id))
         connectivity_matrix.to_csv(filename)
     return connectivity_matrix
 
@@ -68,9 +64,8 @@ if __name__ == '__main__':
     import resource
 
     start_time = time.time()
-    subject = '2692451'
+    subject = '4693901'
     print(subject)
-    rois_in_bdata = ['aseg', 'hcp180']
     opts = dict()
     opts['shift_size'] = 5
     opts['normalize_mode'] = 'PercentSignalChange'
@@ -100,8 +95,7 @@ if __name__ == '__main__':
                                              'emotion': ['anger', 'fear']}
     model_construction['rsa_type'] = 'shp_sex_emotion'
     model_construction['roi_list'] = get_roi_list(['hcp180'], combine_LR=False, suffices=['_bilateral'])
-    model_construction['roi_list'].extend(get_roi_list(['aseg'], combine_LR=True))
-    rdsa_dict = calculate_rdsa(subject, rois_in_bdata, opts, model_construction, save_model=False)
+    rdsa_dict = calculate_rdsa(subject, opts, model_construction, save_model=False)
     representational_connectivity(rdsa_dict, model_construction, subject, save=True)
     print("--- %s seconds elapsed ---" % (time.time() - start_time))
     print(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)

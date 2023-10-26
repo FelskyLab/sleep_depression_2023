@@ -2,12 +2,8 @@ from rsa import representational_connectivity
 import numpy as np
 import os
 import sys
-# from rsa import calculate_rdsa, representational_connectivity
 from svm_decoder_model import get_roi_list
-# import time
-# import resource
 
-# start_time = time.time()
 
 subject = sys.argv[1]
 
@@ -52,6 +48,3 @@ connectivity_matrix = representational_connectivity(rsa_roi, model_construction,
 save_location = '/external/rprshnas01/netdata_kcni/dflab/team/ma/ukb/imaging/rsa_shp_sex_emotion/connectivity/'
 # os.makedirs(save_location, exist_ok=True)
 connectivity_matrix.to_csv('{}/{}.csv'.format(save_location, subject))
-
-# print("--- %s seconds elapsed ---" % (time.time() - start_time))
-# print(resource.getrusage(resource.RUSAGE_SELF).ru_maxrss)
