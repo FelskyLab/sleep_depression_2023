@@ -4,17 +4,13 @@ This repo contains the code for reproducing the results of the paper [Opposing b
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
-- [About](#about)
-- [Roadmap](#roadmap)
-- [Team/Acknowlegements](#teamacknowlegements)
-- [Contributing](#contributing)
-- [Reproducing](#reproducing)
+- [Abstract](#abstract)
+- [How to use](#how-to-use)
 - [Repository Structure](#repository-structure)
 
 ## Abstract
 
 Sleep and depression have a complex, bidirectional relationship, with sleep-associated alterations in brain dynamics and structure impacting a range of symptoms and cognitive abilities. Previous work describing these relationships has provided an incomplete picture by investigating only one or two types of sleep measures, depression, or neuroimaging modalities in parallel. We analyzed the correlations between task and resting-state brain-wide signatures of sleep, cognition, and depression in over 30,000 individuals. Neural signatures of insomnia and depression were negatively correlated with neural signatures of sleep duration in the task condition but positively correlated in the resting-state condition, showing that resting-state neural signatures of insomnia and depression resemble that of rested wakefulness. This was further supported by our finding of hypoconnectivity in task but hyperconnectivity in resting-state data in association with insomnia and depression This information disputes conventional assumptions about the neurofunctional manifestations of hyper– and hypo-somnia, and may explain inconsistent findings in the literature.
-
 
 
 ## How to use
