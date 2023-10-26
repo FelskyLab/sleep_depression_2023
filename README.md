@@ -1,11 +1,6 @@
-# Project Title
+# Opposing brain signatures of sleep in task-based and resting-state conditions
 
-Write a brief overview that lightly touches on your project's:
-
-- Vision
-- Goals
-- Target audience
-
+This repo contains the code for reproducing the results of the paper [Opposing brain signatures of sleep in task-based and resting-state conditions](https://www.biorxiv.org/content/10.1101/2023.05.13.540646v3.abstract).
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
@@ -16,60 +11,20 @@ Write a brief overview that lightly touches on your project's:
 - [Reproducing](#reproducing)
 - [Repository Structure](#repository-structure)
 
-## About
+## Abstract
 
-Provide greater detail about the project here or provide references to links elsewhere within the repo
+Sleep and depression have a complex, bidirectional relationship, with sleep-associated alterations in brain dynamics and structure impacting a range of symptoms and cognitive abilities. Previous work describing these relationships has provided an incomplete picture by investigating only one or two types of sleep measures, depression, or neuroimaging modalities in parallel. We analyzed the correlations between task and resting-state brain-wide signatures of sleep, cognition, and depression in over 30,000 individuals. Neural signatures of insomnia and depression were negatively correlated with neural signatures of sleep duration in the task condition but positively correlated in the resting-state condition, showing that resting-state neural signatures of insomnia and depression resemble that of rested wakefulness. This was further supported by our finding of hypoconnectivity in task but hyperconnectivity in resting-state data in association with insomnia and depression This information disputes conventional assumptions about the neurofunctional manifestations of hyper– and hypo-somnia, and may explain inconsistent findings in the literature.
 
-- [Proposal](docs/project/proposal.md)
-- [Progress](docs/project/progress.md)
 
-## Roadmap
 
-You can produce a graphical roadmap of your project with [Mermaid](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams). Alternatively writing it out in a `ROADMAP.md` file works just as well.
-
-```mermaid
-gantt
-    title Roadmap Example
-    dateFormat  YYYY-MM-DD
-    excludes weekends
-    section Ideation
-        task-1                          : 2023-01-01, 7d
-        task-2                          : 7d
-    section Planning and Design
-        task-3    : 2023-01-12  , 7d
-        Research Data Managment Plan : milestone,
-    section Collection
-        task-4                       :7d
-        Raw Data           :milestone,
-    section Processing
-        task-5                       :7d
-        Processed Data             :milestone,
-    section Analysis
-        task-6                      :7d
-        Analyzed Data               :milestone,
-    section Publishing
-        task-9                      :7d
-        Published Data              :milestone,
-    section Preserving
-        task-10 :7d
-        Archived Data               :milestone,
-    section Re-use
-        task-11 :7d
-```
-
-## Team/Acknowlegements
-Include any identified subject matter experts that helped in the development and delivery of your project.
-
-## Contributing
-
-If you are collaborating with others it's best to establish some ground rules through a `CONTRIBUTING.md` file in your projects's root.
-
-## Reproducing
-To make the most out of your repository provide guidance that enables others to reproduce your workflow.
-
-### Run Locally
-### Run on the SCC
-
+## How to use
+The project involves processing of [UK Biobank]() and [Human Connectome Project]() datasets. 
+This code is catered to the UK Biobank analysis but it can be used with minimal modifications to process the HCP dataset.
+You will need to add the data yourself into the respository (more on that [here](./data/README.md))
+Please note that running the whole pipeline takes a really long time and it is better to run it in a cluster computer. 
+The analysis are run in both bash and python 3.6.
+It also uses tools from Freesurfer 6.0.0 and FSL 6.0.5.1 and they are loaded as modules as needed.
+This code was run and tested on a cluster that uses Slurm Workload Manager for job scheduling and a Linux Centos 7 operating system.  
 
 ## Repository Structure
 
@@ -79,26 +34,14 @@ project-structure
 ├── code
 │   ├── analysis    # <-- Code for performing analyses
 │   ├── data        # <-- Code for moving data from {source}->{bronze}->{silver}->{gold}
-│   ├── figures     # <-- Code for producing figures
-│   └── job         # <-- Code for job submissions
+│   └── figures     # <-- Code for producing figures
 ├── data            
-│   ├── bronze      # <-- Original immutable data
-│   ├── silver      # <-- Preprocessed data for modeling and analyses
-│   └── gold        # <-- Aggregate data, outputs from models and analyses
-├── docs
-│   ├── code        # <-- Documentation for code
-│   ├── data        # <-- Documentation for datasets (i.e. metadata, data dictionaries)
-│   │   ├── bronze
-│   │   ├── silver
-│   │   └── gold
-│   ├── external    # <-- Documentation from external sources 
-│   └── project     # <-- Documentation for project (i.e Research Data Management Plan)
+│   ├── task      # <-- Data for the task condition
+│   ├── resting      # <-- Data for the resting-state condition
+│   └── anatomy        # <-- Subject data in Freesurfer format 
 ├── environments    # <-- Environments used with project (i.e. .env, environment.yml)
 ├── figures
-├── lib             # <-- External libraries needed to run your code
 ├── models          # <-- Trained and serialized models, model predictions, or model summaries
-├── notebooks       # <-- Notebooks used in exploratory data analysis, numbered in order
-├── README.md       # <-- Overview of your project
-├── CONTRIBUTING.md # <-- How to contribute to developing this template
-└── Makefile        # <-- Contains custom commands to execute your project 
+└── README.md       # <-- Overview of your project
+  
 ```
