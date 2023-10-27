@@ -20,7 +20,8 @@ You will need to add the data yourself into the respository (more on that [here]
 Please note that running the whole pipeline takes a really long time and it is better to run it in a cluster computer. 
 The analysis are run in both bash and python 3.6.
 It also uses tools from Freesurfer 6.0.0 and FSL 6.0.5.1 and they are loaded as modules as needed.
-This code was run and tested on a cluster that uses Slurm Workload Manager for job scheduling and a Linux Centos 7 operating system.  
+This code was run and tested on a cluster that uses Slurm Workload Manager for job scheduling and a Linux Centos 7 operating system.
+After you add the data, you can run the codes based on the instructions [here](./code/README.md).
 
 ## Repository Structure
 
@@ -29,15 +30,14 @@ project-structure
 ├── .gitignore            # <-- Files and directories for git to ignore
 ├── code
 │   ├── analysis    # <-- Code for performing analyses
-│   ├── data        # <-- Code for moving data from {source}->{bronze}->{silver}->{gold}
+│   ├── data        # <-- Code for roi conversion
 │   └── figures     # <-- Code for producing figures
 ├── data            
 │   ├── task      # <-- Data for the task condition
 │   ├── resting      # <-- Data for the resting-state condition
 │   └── anatomy        # <-- Subject data in Freesurfer format 
 ├── environments    # <-- Environments used with project (i.e. .env, environment.yml)
-├── figures
-├── models          # <-- Trained and serialized models, model predictions, or model summaries
-└── README.md       # <-- Overview of your project
+├── figures         # <-- Generated figures
+└── README.md       
   
 ```
