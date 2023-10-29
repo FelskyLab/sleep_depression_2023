@@ -12,6 +12,6 @@ aggregated_data = pd.DataFrame(index=subject_list, columns=np.arange(210))
 for idx, subject in tqdm(enumerate(subject_list)):
     filename = '../../data/resting/processed/functional_connectivity/{}_25750_2_0.txt'.format(subject)
     data_df = pd.read_csv(filename, delimiter=' ', header=None)
-    aggregated_data.loc[subject, :] = data_df.values
+    aggregated_data.loc[subject, :] = data_df.dropna(axis=1).values
 
 aggregated_data.to_csv('../../data/resting/processed/functional_connectivity_results.csv')

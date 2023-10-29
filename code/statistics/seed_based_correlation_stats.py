@@ -85,5 +85,5 @@ for idx, indep_var in enumerate(['duration_of_longest_sleep_bout',
     assoc_stats_df.loc[idx * 16110:(idx + 1) * 16110 - 1, 'p-value (Bonferroni)'] = pval[
                                                                                         np.triu_indices(180, 1)] * 5
     assoc_stats_df.loc[idx * 16110:(idx + 1) * 16110 - 1, 'Significant'] = pval[np.triu_indices(180, 1)] * 5 < 0.05
-assoc_stats_df.to_csv('../../data/stats/seed_based_correlation_association_statistics.csv', index=False)
+assoc_stats_df.to_csv('../../data/resting/stats/seed_based_correlation_association_statistics.csv', index=False)
 
