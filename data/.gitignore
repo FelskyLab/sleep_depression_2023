@@ -1,6 +1,6 @@
-*
-!/anatomy
 !/task
 !/resting
+!/anatomy
+!/phenotype
 !/README.md
-!.gitignore
+!subject_list.txt

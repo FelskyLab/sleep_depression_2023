@@ -14,7 +14,7 @@ Sleep and depression have a complex, bidirectional relationship, with sleep-asso
 
 
 ## How to use
-The project involves processing of [UK Biobank]() and [Human Connectome Project]() datasets. 
+The project involves processing of [UK Biobank](https://www.ukbiobank.ac.uk/enable-your-research/apply-for-access) and [Human Connectome Project](https://www.humanconnectome.org/) datasets. 
 This code is catered to the UK Biobank analysis but it can be used with minimal modifications to process the HCP dataset.
 You will need to add the data yourself into the respository (more on that [here](./data/README.md))
 Please note that running the whole pipeline takes a really long time and it is better to run it in a cluster computer. 
@@ -36,8 +36,6 @@ project-structure
 │   ├── task      # <-- Data for the task condition
 │   ├── resting      # <-- Data for the resting-state condition
 │   └── anatomy        # <-- Subject data in Freesurfer format 
-├── environments    # <-- Environments used with project (i.e. .env, environment.yml)
-├── figures         # <-- Generated figures
 └── README.md       
   
 ```
