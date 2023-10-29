@@ -42,7 +42,7 @@ Contains the subject anatomy data in Freesufer format in addition to fsaverage.
 
 ## Phenotype
 
-Contains the phentype and covariate data. You want to add three files as follows:
+Contains the oype and covariate data. You want to add three files as follows:
 ```bash
 resting
 ├── tfmri_data_covariates_221205.csv    # <-- All the five sleep, depression, and cognition variables 
