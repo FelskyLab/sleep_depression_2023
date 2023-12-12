@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10050660.svg)](https://doi.org/10.5281/zenodo.10050660)
 
-This repo contains the code for reproducing the results of the paper [Opposing brain signatures of sleep in task-based and resting-state conditions](https://www.biorxiv.org/content/10.1101/2023.05.13.540646v3.abstract).
+This repo contains the code for reproducing the results of the paper [Opposing brain signatures of sleep in task-based and resting-state conditions](https://www.nature.com/articles/s41467-023-43737-7).
 ## Table of Contents
 
 - [Table of Contents](#table-of-contents)
